@@ -14,13 +14,16 @@ class HexagramTableScreen < PM::TableScreen
       },
       {
         title: "Hexagrams",
-        title_view_height: 50,
         cells: (1..64).map do |king_wen_number|
           if hexagram = Hexagram.find(king_wen_number)
             {
               title: hexagram.chinese_name,
               subtitle: hexagram.english_name,
-              height: 60
+              height: 60,
+              action: :show_hexagram,
+              arguments: {
+                hexagram: hexagram
+              }
             }
           end
         end
@@ -30,5 +33,9 @@ class HexagramTableScreen < PM::TableScreen
 
   def cast_hexagram
     mp "=====> cast_hexagram"
+  end
+
+  def show_hexagram(args={})
+    open HexagramScreen.new(nav_bar: true, hexagram: args[:hexagram])
   end
 end
