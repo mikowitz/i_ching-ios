@@ -38,10 +38,42 @@ class HexagramScreen < PM::Screen
   end
 
   def add_text
-    append!(UIView, :hexagram_text_view).tap do |q|
-      q.append!(UISegmentedControl, :text_segmented_control)
-      q.append!(UILabel, :hexagram_judgement_text)
-      q.append!(UILabel, :hexagram_image_text)
+    append!(HexagramTextView, :hexagram_text_view).tap do |q|
+      q.data_source = self
+      q.draw_contents
+    end.on(:swipe_up) do |q|
+      rmq.animate(
+        duration: 0.5,
+        animations: -> {
+          rmq(:hexagram_text_view).style do |st|
+            st.frame = { fb: 10 }
+          end
+          rmq(:hexagram_view).style do |st|
+            st.scale = 0.65
+            st.frame = { fr: rmq.stylesheet.margin, t: 150 }
+          end
+        }
+      )
+    end.on(:swipe_down) do |q|
+      rmq.animate(
+        duration: 0.5,
+        animations: -> {
+          rmq(:hexagram_text_view).style do |st|
+            st.frame = { t: rmq.stylesheet.device_width + 50 }
+          end
+          rmq(:hexagram_view).style do |st|
+            st.scale = 1.0
+            st.frame = { fr: rmq.stylesheet.margin, t: 150 }
+          end
+        }
+      )
     end
+  end
+
+  def text_view_contents
+    [
+      hexagram.judgement,
+      hexagram.image
+    ]
   end
 end

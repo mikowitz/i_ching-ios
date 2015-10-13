@@ -4,14 +4,18 @@ class StandardAppearance
   def self.apply(window)
     Dispatch.once do
 
-      UIWindow.appearance.tap do |o|
-        o.tintColor = rmq.color.blue
+      UISegmentedControl.appearance.tap do |o|
+        o.tintColor = rmq.color.off_black
       end
 
-      UILabel.appearance.tap do |o|
-        o.setTextColor rmq.color.black
-        o.font = rmq.font.medium
-      end
+      # UIWindow.appearance.tap do |o|
+      #   o.tintColor = rmq.color.blue
+      # end
+
+      # UILabel.appearance.tap do |o|
+      #   o.setTextColor rmq.color.black
+      #   o.font = rmq.font.medium
+      # end
 
       # UITabBar.appearance.tap do |o|
       #   o.setTintColor rmq.color.blue

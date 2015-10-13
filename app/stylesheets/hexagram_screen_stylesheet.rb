@@ -1,4 +1,6 @@
 class HexagramScreenStylesheet < ApplicationStylesheet
+  include HexagramViewStylesheet
+
   def margin; 12; end
 
   def root_view(st)
@@ -37,20 +39,22 @@ class HexagramScreenStylesheet < ApplicationStylesheet
     st.text_alignment = :center
   end
 
-  def hexagram_line(st)
-    st.background_color = color.clear
-    st.corner_radius = 4
-    st.clips_to_bounds = true
-  end
-
-  def hexagram_line_segment(st)
-    st.background_color = color.off_black
-    st.corner_radius = 4
-    st.clips_to_bounds = true
-  end
-
   def hexagram_text_view(st)
-    st.background_color = color.cyan
-    st.frame = { l: margin, w: device_width - margin * 2, h: device_height - 100, t: device_width + 50 }
+    st.background_color = color.clear
+    st.frame = { l: margin, w: device_width - margin * 2, h: device_height / 2, t: device_width + 50 }
+  end
+
+  def text_segmented_control(st)
+    st.frame = { t: 0, l: 0, w: st.superview.frame.size.width, h: 30 }
+  end
+
+  def hexagram_judgement_text(st)
+    st.frame = { l: 10, w: st.superview.frame.size.width - 20 }
+    st.number_of_lines = 0
+  end
+
+  def hexagram_image_text(st)
+    st.frame = { l: 10, w: st.superview.frame.size.width - 20 }
+    st.number_of_lines = 0
   end
 end
